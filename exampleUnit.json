@@ -1,0 +1,28 @@
+{
+    "name": "Unit",
+    "class": "Cavalier",
+    "unitType": [
+        "mounted"
+    ],
+    "skills": [],
+    "stats": {
+        "maxhp": 10,
+        "str": 10,
+        "mag": 10,
+        "skl": 10,
+        "spd": 10,
+        "lck": 10,
+        "def": 10,
+        "res": 10
+    },
+    "weapon": {
+        "name": "Iron Sword",
+        "type": "sword",
+        "damage": "physical",
+        "rank": "E",
+        "mt": 5,
+        "hit": 95,
+        "crt": 0,
+        "typeKiller": []
+    }
+}

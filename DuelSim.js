@@ -1,4 +1,5 @@
 class DuelSim {
+    //Basic Constructor
     constructor(unit1, unit2) {
         this.unit1 = unit1;
         this.unit2 = unit2;
@@ -11,6 +12,8 @@ class DuelSim {
         this.defender = this.unit2;
     }
 
+    //Set battle stats for units
+    //In most scenarios mt,acc,crt is static
     setupUnits() {
         this.unit1.hp = this.unit1.stats.maxhp;
         this.unit2.hp = this.unit2.stats.maxhp;
@@ -24,7 +27,8 @@ class DuelSim {
         this.unit1.crt = this.unit1.weapon.crt + (this.unit1.stats.skl/2)
         this.unit2.crt = this.unit2.weapon.crt + (this.unit2.stats.skl/2) 
     }
-
+    
+    //Manages the simulation status and calls strike()
     progressDuel() {
         if (this.sequence === "ended") {
             return "This battle has ended";
@@ -56,8 +60,9 @@ class DuelSim {
         return ret;
     }
 
+    //rolls for attack and crit and applies damage accordingly
+    //returns string describing damage dealt
     strike() {
-        //TODO: crit attacks
         if (this.constructor.doubleRoll(this.attacker.acc * .01)) {
             if(this.constructor.doubleRoll(this.attacker.crt * .01)) {
                 this.defender.hp -= this.attacker.mt * 3;
@@ -71,6 +76,8 @@ class DuelSim {
         }
     }
 
+    //Modern Fire Emblem games don't use true probability. Instead opting to take the average of two rolls
+    //Hybrid Roll and Single Roll may be added later as options
     static doubleRoll(chance) {
         let roll1 = Math.random();
         let roll2 = Math.random();
@@ -78,9 +85,10 @@ class DuelSim {
         return chance >= result;
     }
 
+    //Runs might calc (base mt, magic or physical, adds effective damage)
     static getMight(attacker, defender) {
         let might = 0;
-        //calc mt. Phy: str vs def, Mag: Mag vs Res
+        //calc base mt. Phy: str vs def, Mag: Mag vs Res
         if (attacker.weapon.damage === "physical") {
             might = attacker.stats.str + attacker.weapon.mt - defender.stats.def;
         } else if (attacker.weapon.damage === "magical") {
@@ -94,6 +102,7 @@ class DuelSim {
         return might;
     }
 
+    //Returns true if attackers weapon effectiveness intersects with a defender's unit type
     static hasEffectiveDamage(attacker, defender) {
         let attackerEffectiveTypes = attacker.weapon.typeKiller;
         let defenderTypes = defender.unitType; 
@@ -101,19 +110,26 @@ class DuelSim {
         return intersection.length > 0;
     }
 
+    //Calcs accuracy with weapon triangle advantage
     static getAccuracy(attacker, defender) {
         let accuracy = 0;
+        //calc base accuracy weapon hit + skl + lck vs spd + lck
         accuracy = attacker.weapon.hit + ((attacker.stats.skl * 3 + attacker.stats.lck)/2) - ((defender.stats.spd * 3 + defender.stats.lck)/2);
-        let weaponTriange = this.weaponTriange(attacker.weapon, defender.weapon);
-        if(weaponTriange === "advantage")
+        //Add weapon triangle bonus
+        let weaponTriangle = this.weaponTriangle(attacker.weapon, defender.weapon);
+        //Awakening's weapon triangle system is more complicated giving bonuses based off weapon rank.
+        //Will implment later if there is time, otherwise this is ok.
+        if(weaponTriangle === "advantage")
             accuracy += 10
-        else if (weaponTriange === "disadvantage")
+        else if (weaponTriangle === "disadvantage")
             accuracy += -10;
 
         return accuracy;
     }
 
-    static weaponTriange(attkWeapon, defWeapon) {
+    //Returns if attacker weapon has weapon triangle advantage or disadvantage
+    //Using awakening system of sword<lance<axe<sword. Not Fates color system.
+    static weaponTriangle(attkWeapon, defWeapon) {
         let attType = attkWeapon.type;
         let defType = defWeapon.type;
         let weaponAdvantage = "none"
