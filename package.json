@@ -1,0 +1,33 @@
+{
+  "name": "javascript-emblem",
+  "version": "1.0.0",
+  "description": "Final Project for CMSC335. Fire Emblem battle simulator based off of old personal project",
+  "main": "DuelSim.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henrycov/Javascript-Emblem.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henrycov/Javascript-Emblem/issues"
+  },
+  "homepage": "https://github.com/henrycov/Javascript-Emblem#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "googleapis": "^100.0.0",
+    "http": "0.0.1-security",
+    "nodemon": "^2.0.16",
+    "passport": "^0.5.2",
+    "passport-google-oauth2": "^0.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {}
+}
