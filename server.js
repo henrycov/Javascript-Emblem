@@ -36,8 +36,9 @@ app.get("/battle", async (req, res) => {
     let variables = 
     {unitSelectionBlue: formattedUnits,
         unitSelectionRed: formattedUnits,
-        ...formatter.defaultBlue,
-        ...formatter.defaultRed
+        blueUnit: formatter.defaultUnit,
+        redUnit: formatter.defaultUnit,
+        something: {var: "thing"}
     }
 
     res.render("battle",variables);
@@ -51,8 +52,9 @@ app.get("/battle/blueSelect", async (req, res) => {
     let variables = 
     {unitSelectionBlue: formatter.unitsToSelection(units, blueUnit.name),
         unitSelectionRed: formatter.unitsToSelection(units, req.query.redName),
-        ...formatter.unitToBlueObject(blueUnit),
-        ...formatter.passQueryRedObject(req.query)}
+        blueUnit: blueUnit,
+        redUnit: formatter.passQueryRedObject(req.query),
+        }
 
     res.render("battle",variables);
 });
@@ -65,8 +67,8 @@ app.get("/battle/redSelect", async (req, res) => {
     let variables = 
     {unitSelectionBlue: formatter.unitsToSelection(units, req.query.blueName),
         unitSelectionRed: formatter.unitsToSelection(units, redUnit.name),
-        ...formatter.passQueryBlueObject(req.query),
-        ...formatter.unitToRedObject(redUnit)}
+        blueUnit: formatter.passQueryBlueObject(req.query),
+        redUnit: redUnit}
 
     res.render("battle",variables);
 });
