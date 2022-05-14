@@ -3,8 +3,10 @@ const path = require("path");
 const express = require("express");
 const database = require("./mongoDB");
 const formatter = require("./format");
+const duelSim = require("./DuelSim");
 let bodyParser = require("body-parser");
 const req = require("express/lib/request");
+const { query } = require("express");
 const app = express();
 
 const serverPort = 5000; 
@@ -38,7 +40,7 @@ app.get("/battle", async (req, res) => {
         unitSelectionRed: formattedUnits,
         blueUnit: formatter.defaultUnit,
         redUnit: formatter.defaultUnit,
-        something: {var: "thing"}
+        ...formatter.defaultBattle
     }
 
     res.render("battle",variables);
@@ -54,6 +56,7 @@ app.get("/battle/blueSelect", async (req, res) => {
         unitSelectionRed: formatter.unitsToSelection(units, req.query.redName),
         blueUnit: blueUnit,
         redUnit: formatter.passQueryRedObject(req.query),
+        ...formatter.defaultBattle
         }
 
     res.render("battle",variables);
@@ -68,11 +71,47 @@ app.get("/battle/redSelect", async (req, res) => {
     {unitSelectionBlue: formatter.unitsToSelection(units, req.query.blueName),
         unitSelectionRed: formatter.unitsToSelection(units, redUnit.name),
         blueUnit: formatter.passQueryBlueObject(req.query),
-        redUnit: redUnit}
+        redUnit: redUnit,
+        ...formatter.defaultBattle
+    }
 
     res.render("battle",variables);
 });
 
+app.get("/battle/start", async (req,res) => {
+    let units = await mongoClient.list();
+
+    let battleStat = duelSim.setupUnits(
+        formatter.passQueryBlueObject(req.query),formatter.passQueryRedObject(req.query));
+
+    let variables = 
+    {unitSelectionBlue: formatter.unitsToSelection(units, req.query.blueName),
+        unitSelectionRed: formatter.unitsToSelection(units, req.query.redName),
+        blueUnit: formatter.passQueryBlueObject(req.query),
+        redUnit: formatter.passQueryRedObject(req.query),
+        ...battleStat
+    }
+    res.render("battle",variables);
+})
+
+app.get("/battle/step", async (req,res) => {
+    let units = await mongoClient.list();
+    
+    let battleStat = formatter.passQueryBattleStatus(req.query)
+    battleStat.blueBattleStats.name = req.query.blueName;
+    battleStat.redBattleStats.name = req.query.redName;
+    battleStat = duelSim.step(battleStat);
+
+    let variables = 
+    {unitSelectionBlue: formatter.unitsToSelection(units, req.query.blueName),
+        unitSelectionRed: formatter.unitsToSelection(units, req.query.redName),
+        blueUnit: formatter.passQueryBlueObject(req.query),
+        redUnit: formatter.passQueryRedObject(req.query),
+        ...battleStat
+    }
+
+    res.render("battle",variables);
+})
 
 console.log("Server started on port " + serverPort);
 http.createServer(app).listen(serverPort);

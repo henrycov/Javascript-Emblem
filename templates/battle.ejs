@@ -72,7 +72,7 @@
               <th><input class="unitStat" type="number" id="blueLck" name="blueLck" value="<%- blueUnit.stats.lck %>" readonly></th>
             </tr>
             <tr>
-              <th><label for="blueDef">Defence:</label></th>
+              <th><label for="blueDef">Defense:</label></th>
               <th><input class="unitStat" type="number" id="blueDef" name="blueDef" value="<%- blueUnit.stats.def %>" readonly></th>
             </tr>
             <tr>
@@ -119,25 +119,25 @@
                 <table>
                   <tr>
                     <th><label for="bluehp">HP:</label></th>
-                    <th><input class="unitStat" type="text" id="bluehp" name="bluehp" readonly></th>
+                    <th><input class="unitStat" type="text" id="bluehp" name="bluehp" value="<%- blueBattleStats.hp %>" readonly></th>
                   </tr>
                   <tr>
                     <th><label for="blueHit">Hit:</label></th>
-                    <th><input class="unitStat" type="text" id="blueHit" name="blueHit" readonly></th>
+                    <th><input class="unitStat" type="text" id="blueHit" name="blueHit" value="<%- blueBattleStats.acc %>" readonly></th>
                   </tr>
                   <tr>
                     <th><label for="blueMt">Damage:</label></th>
-                    <th><input class="unitStat" type="text" id="blueMt" name="blueMt" readonly></th>
+                    <th><input class="unitStat" type="text" id="blueMt" name="blueMt" value="<%- blueBattleStats.mt %>" readonly></th>
                   </tr>
                   <tr>
                     <th><label for="blueCrt">Critical:</label></th>
-                    <th><input class="unitStat" type="text" id="blueCrt" name="blueCrt" readonly></th>
+                    <th><input class="unitStat" type="text" id="blueCrt" name="blueCrt" value="<%- blueBattleStats.crt %>" readonly></th>
                   </tr>
                 </table>
               </div>
               <div class="column middleDisplay">
                 <br>
-                <input class="status" type="text" id="status" name="status" value="" readonly>
+                <input class="status" type="text" id="status" name="status" value="<%- status %>" readonly>
                 <br> <br>
                 <button type="submit" formaction="/battle/start">Start</button>
                 <button type="submit" formaction="/battle/step">Step</button>
@@ -146,19 +146,19 @@
                 <table>
                   <tr>
                     <th><label for="redhp">HP:</label></th>
-                    <th><input class="unitStat" type="text" id="redhp" name="redhp" readonly></th>
+                    <th><input class="unitStat" type="text" id="redhp" name="redhp" value="<%- redBattleStats.hp %>" readonly></th>
                   </tr>
                   <tr>
                     <th><label for="redHit">Hit:</label></th>
-                    <th><input class="unitStat" type="text" id="redHit" name="redHit" readonly></th>
+                    <th><input class="unitStat" type="text" id="redHit" name="redHit" value="<%- redBattleStats.acc %>" readonly></th>
                   </tr>
                   <tr>
                     <th><label for="redMt">Damage:</label></th>
-                    <th><input class="unitStat" type="text" id="redMt" name="redMt" readonly></th>
+                    <th><input class="unitStat" type="text" id="redMt" name="redMt" value="<%- redBattleStats.mt %>" readonly></th>
                   </tr>
                   <tr>
                     <th><label for="redCrt">Critical:</label></th>
-                    <th><input class="unitStat" type="text" id="redCrt" name="redCrt" readonly></th>
+                    <th><input class="unitStat" type="text" id="redCrt" name="redCrt" value="<%- redBattleStats.crt %>" readonly></th>
                   </tr>
                 </table>
               </div>
@@ -166,7 +166,7 @@
           </div>
 
           <div class="battleLogs">
-            <textarea value=""readonly></textarea>
+            <textarea readonly><%- battleLog %></textarea>
           </div>
         </div>
         <div class="column redUnit">
@@ -219,7 +219,7 @@
                 <th><input class="unitStat" type="number" id="redLck" name="redLck" value="<%- redUnit.stats.lck %>"></th>
               </tr>
               <tr>
-                <th><label for="redDef">Defence:</label></th>
+                <th><label for="redDef">Defense:</label></th>
                 <th><input class="unitStat" type="number" id="redDef" name="redDef" value="<%- redUnit.stats.def %>"></th>
               </tr>
               <tr>

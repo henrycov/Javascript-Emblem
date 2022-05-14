@@ -21,18 +21,27 @@ const defaultUnit = {
     typeKiller: emptyArray}
 }
 
+const defaultBattle = {
+    status: "unstarted",
+    blueBattleStats: {
+    },
+    redBattleStats: {
+    },
+    battleLog: ""
+}
+
 function passQueryBlueObject(query) {
     blueUnit = {
         name: query.blueName, class: query.blueClass, 
-        unitType: query.blueClassType, skills: query.blueSkills,
-        stats: {maxhp: query.blueMaxhp, 
-            str: query.blueStr, mag: query.blueMag, 
-            skl: query.blueSkl, spd: query.blueSpd, lck: query.blueLck, 
-            def: query.blueDef, res: query.blueRes},
+        unitType: query.blueClassType.split(",").filter(i => i), skills: query.blueSkills.split(",").filter(i => i),
+        stats: {maxhp: Number(query.blueMaxhp), 
+            str: Number(query.blueStr), mag: Number(query.blueMag), 
+            skl: Number(query.blueSkl), spd: Number(query.blueSpd), lck: Number(query.blueLck), 
+            def: Number(query.blueDef), res: Number(query.blueRes)},
         weapon: {name: query.blueWeaponName, 
         type: query.blueWeaponType, damage: query.blueDamageType,
-        mt: query.blueWeaponMt, hit: query.blueWeaponAcc, crt: query.blueWeaponCrt,
-        typeKiller: query.blueWeaponKiller}
+        mt: Number(query.blueWeaponMt), hit: Number(query.blueWeaponAcc), crt: Number(query.blueWeaponCrt),
+        typeKiller: query.blueWeaponKiller.split(",").filter(i => i)}
     }
     return blueUnit;
 }
@@ -40,17 +49,36 @@ function passQueryBlueObject(query) {
 function passQueryRedObject(query) {
     redUnit = {
         name: query.redName, class: query.redClass, 
-        unitType: query.redClassType, skills: query.redSkills,
-        stats: {maxhp: query.redMaxhp, 
-            str: query.redStr, mag: query.redMag, 
-            skl: query.redSkl, spd: query.redSpd, lck: query.redLck, 
-            def: query.redDef, res: query.redRes},
+        unitType: query.redClassType.split(",").filter(i => i), skills: query.redSkills.split(",").filter(i => i),
+        stats: {maxhp: Number(query.redMaxhp), 
+            str: Number(query.redStr), mag: Number(query.redMag), 
+            skl: Number(query.redSkl), spd: Number(query.redSpd), lck: Number(query.redLck), 
+            def: Number(query.redDef), res: Number(query.redRes)},
         weapon: {name: query.redWeaponName, 
         type: query.redWeaponType, damage: query.redDamageType,
-        mt: query.redWeaponMt, hit: query.redWeaponAcc, crt: query.redWeaponCrt,
-        typeKiller: query.redWeaponKiller}
+        mt: Number(query.redWeaponMt), hit: Number(query.redWeaponAcc), crt: Number(query.redWeaponCrt),
+        typeKiller: query.redWeaponKiller.split(",").filter(i => i)}
     }
     return redUnit;
 }
 
-module.exports = {unitsToSelection, defaultUnit, passQueryBlueObject, passQueryRedObject};
+function passQueryBattleStatus(query) {
+    let status =  query.status
+    let battleLog = "";
+    let blueBattleStats =  {
+        hp: query.bluehp,
+        mt: query.blueMt,
+        acc: query.blueHit,
+        crt: query.blueCrt,
+    }
+    let redBattleStats = {
+        hp: query.redhp,
+        mt: query.redWeaponMt,
+        acc: query.redHit,
+        crt: query.redCrt,
+    }
+    return {status, battleLog, blueBattleStats, redBattleStats}
+}
+
+module.exports = {unitsToSelection, defaultUnit, defaultBattle, 
+    passQueryBlueObject, passQueryRedObject, passQueryBattleStatus};
