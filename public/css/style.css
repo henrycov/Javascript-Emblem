@@ -1,0 +1,154 @@
+/*https://coolors.co/palette/132a13-31572c-4f772d-90a955-ecf39e */
+html {
+    font-size: 14px;
+}
+
+body {
+  background-color: #31572C
+}
+
+.contentBox {
+  position: relative;
+  max-width: 85rem;
+  min-width: 75rem;
+  height: 51rem;
+  margin: auto;
+}
+
+.header {
+  background-color: #132A13;
+  overflow: hidden;
+}
+
+.header h1 {
+  color: #ECF39E;
+  padding: 0rem 1rem;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #ECF39E;
+    text-align: center;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #90A955;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #ECF39E;
+    color: #132A13;
+}
+
+/* Right-aligned section inside the top navigation */
+.topnav-right {
+  float: right;
+}
+
+.column {
+  position: relative;
+  float: left;
+  padding: 1%;
+  height: 51rem;
+}
+
+.blueDisplay, .middleDisplay, .redDisplay{
+  height: 7.2rem;
+  padding: 0rem 0.5rem;
+}
+
+.blueDisplay, .redDisplay{
+  width: 40%;
+  text-align: left;
+}
+
+.middleDisplay {
+  width: 10%
+}
+
+.blueDisplay {
+   background-color: #2196f3;
+}
+
+.redDisplay {
+   background-color: #f44336;
+}
+
+.redUnit, .blueUnit {
+  width: 18%;
+}
+
+.blueUnit {
+  background-color: #2196f3;
+}
+
+.redUnit {
+  background-color: #f44336;
+  text-align: right
+}
+
+.middle {
+  width: 60%;
+  text-align: center;
+  padding: 0%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.battleDisplay {
+  background-image: url("../images/battle1.jpg");
+  background-color: lime;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 75%;
+  width: 100%;
+  padding: 2%;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.unitSelect {
+  width: 12rem;
+  float: center;
+}
+
+table {
+  text-align: left
+}
+
+.unitText {
+  width: 7rem
+}
+
+.unitStat {
+  width: 2.1rem;
+}
+
+.battleLogs {
+  text-align: left;
+  height: 24%
+}
+
+.battleLogs textarea {
+  width: 100%;
+  min-height: 100%;
+}
+
+.status {
+  width:  4rem;
+  text-align: center;
+}

@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Javascript Emblem</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <form method="get">
+    <div class="contentBox">
+      <div class="header">
+        <h1>Javascript Emblem</h1>
+        <div class="topnav">
+          <a class="active" href="/battle">Battle Simulator</a>
+          <a href="/creator">Unit Creator</a>
+          <a href="/info">Information</a>
+          <div class="topnav-right">
+            <a href="/login">User Login</a>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="column blueUnit">
+          <h2>Blue Unit</h2>
+          <select class="unitSelect" id="blueUnit" name="blueName">
+            <%- unitSelectionBlue %>
+          </select>
+          <button type="submit" formaction="/battle/blueSelect">Select Blue Unit</button>
+          <br>
+          <hr>
+          <table>
+            <tr>
+              <th><label for="blueClass">Class:</label></th>
+              <th><input class="unitText" type="text" id="blueClass" name="blueClass" value="<%- blueClass %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueClassType">Class Type:</label></th>
+              <th><input class="unitText" type="text" id="blueClassType" name="blueClassType" value="<%- blueClassType %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueSkills">Skills(WIP):</label></th>
+              <th><input class="unitText" type="text" id="blueSkills" name="blueSkills" value="<%- blueSkills %>" readonly></th>
+            </tr>
+          </table>
+          <hr>
+          <table>
+            <tr>
+              <th><label for="blueMaxhp">Max HP:</label></th>
+              <th><input class="unitStat" type="number" id="blueMaxhp" name="blueMaxhp" value="<%- blueMaxhp %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueStr">Strength:</label></th>
+              <th><input class="unitStat" type="number" id="blueStr" name="blueStr" value="<%- blueStr %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueMag">Magic:</label></th>
+              <th><input class="unitStat" type="number" id="blueMag" name="blueMag" value="<%- blueMag %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueSkl">Skill:</label></th>
+              <th><input class="unitStat" type="number" id="blueSkl" name="blueSkl" value="<%- blueSkl %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueSpd">Speed:</label></th>
+              <th><input class="unitStat" type="number" id="blueSpd" name="blueSpd" value="<%- blueSpd %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueLck">Luck:</label></th>
+              <th><input class="unitStat" type="number" id="blueLck" name="blueLck" value="<%- blueLck %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueDef">Defence:</label></th>
+              <th><input class="unitStat" type="number" id="blueDef" name="blueDef" value="<%- blueDef %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueRes">Resistance:</label></th>
+              <th><input class="unitStat" type="number" id="blueRes" name="blueRes" value="<%- blueRes %>" readonly></th>
+            </tr>
+          </table>
+          <hr>
+          <table>
+            <tr>
+              <th><label for="blueWeaponName">Weapon:</label></th>
+              <th><input class="unitText" type="text" id="blueWeaponName" name="blueWeaponName" value="<%- blueWeaponName %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueWeaponType">Type:</label></th>
+              <th><input class="unitText" type="text" id="blueWeaponType" name="blueWeaponType" value="<%- blueWeaponType %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueDamageType">Damage:</label></th>
+              <th><input class="unitText" type="text" id="blueDamageType" name="blueDamageType" value="<%- blueDamageType %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueWeaponKiller">Effective:</label></th>
+              <th><input class="unitText" type="text" id="blueWeaponKiller" name="blueWeaponKiller" value="<%- blueWeaponKiller %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueWeaponMt">Mt:</label></th>
+              <th><input class="unitStat" type="number" id="blueWeaponMt" name="blueWeaponMt" value="<%- blueWeaponMt %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueWeaponAcc">Accuracy:</label></th>
+              <th><input class="unitStat" type="number" id="blueWeaponAcc" name="blueWeaponAcc" value="<%- blueWeaponAcc %>" readonly></th>
+            </tr>
+            <tr>
+              <th><label for="blueWeaponCrt">Crt Rate:</label></th>
+              <th><input class="unitStat" type="number" id="blueWeaponCrt" name="blueWeaponCrt" value="<%- blueWeaponCrt %>" readonly></th>
+            </tr>
+          </table>
+        </div>
+        <div class="column middle">
+          <div class="battleDisplay">
+            <div class="row">
+              <div class="column blueDisplay">
+                <table>
+                  <tr>
+                    <th><label for="bluehp">HP:</label></th>
+                    <th><input class="unitStat" type="text" id="bluehp" name="bluehp" readonly></th>
+                  </tr>
+                  <tr>
+                    <th><label for="blueHit">Hit:</label></th>
+                    <th><input class="unitStat" type="text" id="blueHit" name="blueHit" readonly></th>
+                  </tr>
+                  <tr>
+                    <th><label for="blueMt">Damage:</label></th>
+                    <th><input class="unitStat" type="text" id="blueMt" name="blueMt" readonly></th>
+                  </tr>
+                  <tr>
+                    <th><label for="blueCrt">Critical:</label></th>
+                    <th><input class="unitStat" type="text" id="blueCrt" name="blueCrt" readonly></th>
+                  </tr>
+                </table>
+              </div>
+              <div class="column middleDisplay">
+                <br>
+                <input class="status" type="text" id="status" name="status" value="Start" readonly>
+                <button type="submit" formaction="/battle/step">Battle!</button>
+              </div>
+              <div class="column redDisplay">
+                <table>
+                  <tr>
+                    <th><label for="redhp">HP:</label></th>
+                    <th><input class="unitStat" type="text" id="redhp" name="redhp" readonly></th>
+                  </tr>
+                  <tr>
+                    <th><label for="redHit">Hit:</label></th>
+                    <th><input class="unitStat" type="text" id="redHit" name="redHit" readonly></th>
+                  </tr>
+                  <tr>
+                    <th><label for="redMt">Damage:</label></th>
+                    <th><input class="unitStat" type="text" id="redMt" name="redMt" readonly></th>
+                  </tr>
+                  <tr>
+                    <th><label for="redCrt">Critical:</label></th>
+                    <th><input class="unitStat" type="text" id="redCrt" name="redCrt" readonly></th>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="battleLogs">
+            <textarea readonly></textarea>
+          </div>
+        </div>
+        <div class="column redUnit">
+          <form>
+            <h2>Red Unit</h2>
+            <select class="unitSelect" id="redUnit" name="redName">
+              <%- unitSelectionRed %>
+            </select>
+            <button type="submit" formaction="/battle/redSelect">Select Red Unit</button>
+            <br>
+            <hr>
+            <table>
+              <tr>
+                <th><label for="redClass">Class:</label></th>
+                <th><input class="unitText" type="text" id="redClass" name="redClass" value="<%- redClass %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redClassType">Class Type:</label></th>
+                <th><input class="unitText" type="text" id="redClassType" name="redClassType" value="<%- redClassType %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redSkills">Skills(WIP):</label></th>
+                <th><input class="unitText" type="text" id="redSkills" name="redSkills" value="<%- redSkills %>"></th>
+              </tr>
+            </table>
+            <hr>
+            <table>
+              <tr>
+                <th><label for="redMaxhp">Max HP:</label></th>
+                <th><input class="unitStat" type="number" id="redMaxhp" name="redMaxhp" value="<%- redMaxhp %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redStr">Strength:</label></th>
+                <th><input class="unitStat" type="number" id="redStr" name="redStr" value="<%- redStr %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redMag">Magic:</label></th>
+                <th><input class="unitStat" type="number" id="redMag" name="redMag" value="<%- redMag %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redSkl">Skill:</label></th>
+                <th><input class="unitStat" type="number" id="redSkl" name="redSkl" value="<%- redSkl %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redSpd">Speed:</label></th>
+                <th><input class="unitStat" type="number" id="redSpd" name="redSpd" value="<%- redSpd %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redLck">Luck:</label></th>
+                <th><input class="unitStat" type="number" id="redLck" name="redLck" value="<%- redLck %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redDef">Defence:</label></th>
+                <th><input class="unitStat" type="number" id="redDef" name="redDef" value="<%- redDef %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redRes">Resistance:</label></th>
+                <th><input class="unitStat" type="number" id="redRes" name="redRes" value="<%- redRes %>"></th>
+              </tr>
+            </table>
+            <hr>
+            <table>
+              <tr>
+                <th><label for="redWeaponName">Weapon:</label></th>
+                <th><input class="unitText" type="text" id="redWeaponName" name="redWeaponName" value="<%- redWeaponName %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redWeaponType">Type:</label></th>
+                <th><input class="unitText" type="text" id="redWeaponType" name="redWeaponType" value="<%- redWeaponType %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redDamageType">Damage:</label></th>
+                <th><input class="unitText" type="text" id="redDamageType" name="redDamageType" value="<%- redDamageType %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redWeaponKiller">Effective:</label></th>
+                <th><input class="unitText" type="text" id="redWeaponKiller" name="redWeaponKiller" value="<%- redWeaponKiller %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redWeaponMt">Mt:</label></th>
+                <th><input class="unitStat" type="number" id="redWeaponMt" name="redWeaponMt" value="<%- redWeaponMt %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redWeaponAcc">Accuracy:</label></th>
+                <th><input class="unitStat" type="number" id="redWeaponAcc" name="redWeaponAcc" value="<%- redWeaponAcc %>"></th>
+              </tr>
+              <tr>
+                <th><label for="redWeaponCrt">Crt Rate:</label></th>
+                <th><input class="unitStat" type="number" id="redWeaponCrt" name="redWeaponCrt" value="<%- redWeaponCrt %>"></th>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+  </form>
+</body>
+
+</html>

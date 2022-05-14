@@ -2,9 +2,10 @@
   "name": "javascript-emblem",
   "version": "1.0.0",
   "description": "Final Project for CMSC335. Fire Emblem battle simulator based off of old personal project",
-  "main": "DuelSim.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "express-session": "^1.17.3",
     "googleapis": "^100.0.0",
     "http": "0.0.1-security",
+    "mongodb": "^4.6.0",
     "nodemon": "^2.0.16",
     "passport": "^0.5.2",
     "passport-google-oauth2": "^0.2.0",

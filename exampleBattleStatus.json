@@ -1,0 +1,15 @@
+{
+    "status": "start",
+    "blueBattleStats": {
+        "hp": 10,
+        "mt": 1,
+        "acc": 100,
+        "crt": 0
+    },
+    "redBattleStats": {
+        "hp": 10,
+        "mt": 1,
+        "acc": 100,
+        "crt": 0
+    }
+}

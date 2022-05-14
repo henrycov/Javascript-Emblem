@@ -1,12 +1,12 @@
 const path = require("path");
 const { MongoClient, ServerApiVersion } = require('mongodb');
-require("dotenv").config({ path: path.resolve(__dirname, '.env') })  
+require("dotenv").config({ path: path.resolve(__dirname, '.env') })
 
 class MongoDB {
 
     //Basic constructor of uri,db and collection
-    constructor(uri,db,collection) {
-        this.databaseAndCollection = {db: `${db}`, collection:`${collection}`};
+    constructor(uri, db, collection) {
+        this.databaseAndCollection = { db: `${db}`, collection: `${collection}` };
         this.client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
     }
 
@@ -18,7 +18,7 @@ class MongoDB {
             console.error(e);
         }
     }
-   
+
     //Closes client
     async close() {
         try {
@@ -34,17 +34,34 @@ class MongoDB {
             //If a filter is not given define empty filter
             if (filter === undefined)
                 filter = {};
-            
+
             const cursor = this.client.db(this.databaseAndCollection.db)
-            .collection(this.databaseAndCollection.collection)
-            .find(filter);
-            
+                .collection(this.databaseAndCollection.collection)
+                .find(filter);
+
             const result = await cursor.toArray();
             return result;
         } catch (e) {
             console.error(e);
         }
     }
+
+    //Lists data in current collection based on filter
+    async lookUp(unitName) {
+        try {
+            let filter = {name: unitName};
+
+            const cursor = this.client.db(this.databaseAndCollection.db)
+                .collection(this.databaseAndCollection.collection)
+                .find(filter);
+
+            const result = await cursor.toArray();
+            return result;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
 
     //Insert data into current collection
     async insert(newData) {
@@ -53,6 +70,6 @@ class MongoDB {
     }
 }
 
- /* Our database and collection */
+/* Our database and collection */
 
-module.exports = {MongoDB};
+module.exports = { MongoDB };

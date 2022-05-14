@@ -19,7 +19,6 @@
         "name": "Iron Sword",
         "type": "sword",
         "damage": "physical",
-        "rank": "E",
         "mt": 5,
         "hit": 95,
         "crt": 0,
