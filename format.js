@@ -1,3 +1,5 @@
+//Module used for formatting different inputs (database and form) queries to frontend format
+
 function unitsToSelection(units, selectedName) {
     return units.reduce((base, unit) => {
         let selectedPhrase = (unit.name === selectedName) ? " selected" : ""; 

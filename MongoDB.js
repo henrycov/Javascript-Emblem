@@ -29,6 +29,7 @@ class MongoDB {
         }
     }
 
+    //Collection setter and getter since it chances frequently
     get collection() {
         return this.databaseAndCollection.collection;
     }
@@ -37,14 +38,17 @@ class MongoDB {
         this.databaseAndCollection.collection = collectionName;
     }
 
+    //Inits user as their own collection
     async createUserCollection(userId) {
+        //Find if user id matches with a current collection
         let collectionQuery = await this.client.db(this.databaseAndCollection.db).listCollections({name: userId}).toArray();
         if (collectionQuery.length <= 0) {
+            //query all default units to provide initial values for the newuser collection
             this.collection = process.env.MONGO_DEFAULT;
             let defaultUnits = await this.client.db(this.databaseAndCollection.db)
             .collection(this.databaseAndCollection.collection)
             .find().toArray();
-            
+            //Create new user collection
             await this.client.db(this.databaseAndCollection.db).createCollection(userId, { capped : true, size : 1000000, max : 5000 });
             this.collection = userId;
             await this.client.db(this.databaseAndCollection.db)
@@ -54,6 +58,7 @@ class MongoDB {
         }
     }
 
+    //Changes to valid user collection
     async switchUserCollection(email) {
         const result = await this.client.db(this.databaseAndCollection.db)
                 .collection("users")
@@ -69,8 +74,6 @@ class MongoDB {
             //If a filter is not given define empty filter
             if (filter === undefined)
                 filter = {};
-
-            console.log(this.collection)
 
             const cursor = this.client.db(this.databaseAndCollection.db)
                 .collection(this.databaseAndCollection.collection)
