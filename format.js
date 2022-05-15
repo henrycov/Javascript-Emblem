@@ -73,7 +73,7 @@ function passQueryBattleStatus(query) {
     }
     let redBattleStats = {
         hp: query.redhp,
-        mt: query.redWeaponMt,
+        mt: query.redMt,
         acc: query.redHit,
         crt: query.redCrt,
     }

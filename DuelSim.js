@@ -99,7 +99,7 @@ function strike(attacker, defender, phrase) {
     if (doubleRoll(attacker.acc * .01)) {
         if (doubleRoll(attacker.crt * .01)) {
             defender.hp -= attacker.mt * 3;
-            log = `${attacker.name} critically ${phrase}s ${defender.name} for ${attacker.mt} damage!`;
+            log = `${attacker.name} critically ${phrase}s ${defender.name} for ${attacker.mt * 3} damage!`;
         } else {
             defender.hp -= attacker.mt;
             log = `${attacker.name} ${phrase}s ${defender.name} for ${attacker.mt} damage.`;
