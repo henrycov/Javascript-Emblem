@@ -17,7 +17,12 @@
           <a href="/creator">Unit Creator</a>
           <a href="/info">Information</a>
           <div class="topnav-right">
-            <a href="/login">User Login</a>
+            <% if (loggedIn) { %>
+              <a>Hello <%- userName %>!</a>
+              <a href="/logout">Logout</a>
+            <%} else { %>
+              <a href="/login">User Login</a>
+            <% } %>
           </div>
         </div>
       </div>

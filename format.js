@@ -5,6 +5,15 @@ function unitsToSelection(units, selectedName) {
     }
     ,"");
 }
+
+function passUserInfo(user) {
+    if (user === undefined) {
+        return {loggedIn: false};
+    } else {
+        return {loggedIn: true, userName: user.displayName};
+    }
+}
+
 const defaultString = "NA";
 const defaultNumber = 0;
 const emptyArray = [];
@@ -80,5 +89,5 @@ function passQueryBattleStatus(query) {
     return {status, battleLog, blueBattleStats, redBattleStats}
 }
 
-module.exports = {unitsToSelection, defaultUnit, defaultBattle, 
+module.exports = {unitsToSelection, passUserInfo, defaultUnit, defaultBattle, 
     passQueryBlueObject, passQueryRedObject, passQueryBattleStatus};

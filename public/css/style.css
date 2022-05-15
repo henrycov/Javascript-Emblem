@@ -152,3 +152,16 @@ table {
   width:  4rem;
   text-align: center;
 }
+
+.loginBox {
+  margin: auto;
+  width: 25%;
+  background-color: #90A955;
+  border: solid black .1rem;
+  padding: .5rem;
+  height: 10rem;
+}
+
+.loginBox h2 {
+  text-align: center;
+}

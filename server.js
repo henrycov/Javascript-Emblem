@@ -7,7 +7,26 @@ const duelSim = require("./DuelSim");
 let bodyParser = require("body-parser");
 const req = require("express/lib/request");
 const { query } = require("express");
+
+const userName = process.env.MONGO_DB_USERNAME;
+const password = process.env.MONGO_DB_PASSWORD;
+const uri = `mongodb+srv://${userName}:${password}@cluster0.zocte.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+let db = process.env.MONGO_DB_NAME;
+let collection = process.env.MONGO_DEFAULT;
+
+let mongoClient = new database.MongoDB(uri,db,collection);
+(async() => {await mongoClient.connect()})();
+
+const session = require("express-session");
+const passport = require('passport');
+const { redirect } = require("express/lib/response");
+require("dotenv").config({ path: path.resolve(__dirname, '.env') });
+require('./auth')(mongoClient);
+
 const app = express();
+app.use(session({secret: process.env.SESSION_SECRET}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const serverPort = 5000; 
 
@@ -17,21 +36,14 @@ app.use(express.static(__dirname + '/public'));
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 
-const userName = process.env.MONGO_DB_USERNAME;
-const password = process.env.MONGO_DB_PASSWORD;
-const uri = `mongodb+srv://${userName}:${password}@cluster0.zocte.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-let db = process.env.MONGO_DB_NAME;
-let collection = process.env.MONGO_COLLECTION;
-
-let mongoClient = new database.MongoDB(uri,db,collection);
-(async() => {await mongoClient.connect()})();
-
 app.get('/', function(req, res){
     res.redirect('/battle');
 });
 
 app.get("/battle", async (req, res) => {
+    req.user ? await mongoClient.switchUserCollection(req.user.email) : mongoClient.collection = process.env.MONGO_DEFAULT;
     let units = await mongoClient.list();
+    let userInfo = formatter.passUserInfo(req.user);
 
     let formattedUnits = formatter.unitsToSelection(units);
 
@@ -40,14 +52,17 @@ app.get("/battle", async (req, res) => {
         unitSelectionRed: formattedUnits,
         blueUnit: formatter.defaultUnit,
         redUnit: formatter.defaultUnit,
-        ...formatter.defaultBattle
+        ...formatter.defaultBattle,
+        ...userInfo
     }
 
     res.render("battle",variables);
 });
 
 app.get("/battle/blueSelect", async (req, res) => {
+    req.user ? await mongoClient.switchUserCollection(req.user.email) : mongoClient.collection = process.env.MONGO_DEFAULT;
     let units = await mongoClient.list();
+    let userInfo = formatter.passUserInfo(req.user);
     
     let blueUnit = units.find(unit => unit.name === req.query.blueName);
 
@@ -56,14 +71,17 @@ app.get("/battle/blueSelect", async (req, res) => {
         unitSelectionRed: formatter.unitsToSelection(units, req.query.redName),
         blueUnit: blueUnit,
         redUnit: formatter.passQueryRedObject(req.query),
-        ...formatter.defaultBattle
+        ...formatter.defaultBattle,
+        ...userInfo
         }
 
     res.render("battle",variables);
 });
 
 app.get("/battle/redSelect", async (req, res) => {
+    req.user ? await mongoClient.switchUserCollection(req.user.email) : mongoClient.collection = process.env.MONGO_DEFAULT;
     let units = await mongoClient.list();
+    let userInfo = formatter.passUserInfo(req.user);
     
     let redUnit = units.find(unit => unit.name === req.query.redName);
 
@@ -72,14 +90,17 @@ app.get("/battle/redSelect", async (req, res) => {
         unitSelectionRed: formatter.unitsToSelection(units, redUnit.name),
         blueUnit: formatter.passQueryBlueObject(req.query),
         redUnit: redUnit,
-        ...formatter.defaultBattle
+        ...formatter.defaultBattle,
+        ...userInfo
     }
 
     res.render("battle",variables);
 });
 
 app.get("/battle/start", async (req,res) => {
+    req.user ? await mongoClient.switchUserCollection(req.user.email) : mongoClient.collection = process.env.MONGO_DEFAULT;
     let units = await mongoClient.list();
+    let userInfo = formatter.passUserInfo(req.user);
 
     let battleStat = duelSim.setupUnits(
         formatter.passQueryBlueObject(req.query),formatter.passQueryRedObject(req.query));
@@ -89,13 +110,16 @@ app.get("/battle/start", async (req,res) => {
         unitSelectionRed: formatter.unitsToSelection(units, req.query.redName),
         blueUnit: formatter.passQueryBlueObject(req.query),
         redUnit: formatter.passQueryRedObject(req.query),
-        ...battleStat
+        ...battleStat,
+        ...userInfo
     }
     res.render("battle",variables);
 })
 
 app.get("/battle/step", async (req,res) => {
+    req.user ? await mongoClient.switchUserCollection(req.user.email) : mongoClient.collection = process.env.MONGO_DEFAULT;
     let units = await mongoClient.list();
+    let userInfo = formatter.passUserInfo(req.user);
     
     let battleStat = formatter.passQueryBattleStatus(req.query)
     battleStat.blueBattleStats.name = req.query.blueName;
@@ -107,10 +131,36 @@ app.get("/battle/step", async (req,res) => {
         unitSelectionRed: formatter.unitsToSelection(units, req.query.redName),
         blueUnit: formatter.passQueryBlueObject(req.query),
         redUnit: formatter.passQueryRedObject(req.query),
-        ...battleStat
+        ...battleStat,
+        ...userInfo
     }
 
     res.render("battle",variables);
+})
+
+app.get("/login", function(req,res) {
+    !(req.user) ? res.render("login") : res.sendStatus(401);
+})
+
+app.get('/auth/google',
+    passport.authenticate('google', {scope: ['email', 'profile']})
+);
+
+app.get('/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/',
+        failureRedirect: 'auth/failure'
+    })
+);
+
+app.get('/auth/failure', (req, res) => {
+    res.send('oops! Something went wrong...')
+});
+
+app.get('/logout', (req, res) => {
+    req.logOut();
+    req.session.destroy();
+    res.redirect('/battle');
 })
 
 console.log("Server started on port " + serverPort);
