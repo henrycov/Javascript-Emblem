@@ -29,73 +29,81 @@
     </div>
     <br>
     <div class="creatorBox">
-      <h1> Unit Creator </h1>
+      <h1>Unit Creator</h1>
       <hr>
       <form action="/creator/submit" method="post">
+        <div class="buttonBox">
+          <h3>Select a Unit to edit or make your own!</h3>
+          <select class="unitSelect" id="fillUnitName" name="fillUnitName">
+            <option value="submitNewUnit">Create New Unit</option>
+            <%- unitSelection %>
+          </select>
+          <button type="submit" formaction="/creator/fill">Fill</button>
+        </div>
         <fieldset>
           <legend>General Data</legend>
           <label title="Give your unit a nice, unique name"
              for="name">Name:</label>
-          <input type="text" id="name" name="name">
+          <input type="text" id="name" name="name" value="<%- fillUnit.name %>">
           <label title="Purely descriptive for the time being" 
           for="class">Class:</label>
-          <input type="text" id="class" name="class">
+          <input type="text" id="class" name="class" value="<%- fillUnit.class %>">
           <label title="Descriptors for unit state (mounted, flying, dragon). Used for effective damage. Can have multiple types or none. Use , to separate." 
           for="unitType">Unit Type(s):</label>
-          <input type="text" id="unitType" name="unitType">
+          <input type="text" id="unitType" name="unitType" value="<%- fillUnit.unitType %>">
         </fieldset>
         <br>
         <fieldset>
           <legend>Skills</legend>
           <label title="Skills are unique abilities that can be activated. Not implemented for this prototype"
            for="skills">Skills (WIP):</label>
-          <input type="text" id="skills" name="skills">
+          <input type="text" id="skills" name="skills" value="<%- fillUnit.skills %>">
         </fieldset>
         <br>
         <fieldset>
           <legend>Stats</legend>
           <label title="How much damage a unit can take" for="skills">Maximum HP:</label>
-          <input class="unitStat" type="Number" id="maxhp" name="maxhp">
+          <input class="unitStat" type="Number" id="maxhp" name="maxhp" value="<%- fillUnit.stats.maxhp %>">
           <br> <br>
           <label title="Unit's raw physical power" for="str">Strength:</label>
-          <input class="unitStat" type="Number" id="str" name="str">
+          <input class="unitStat" type="Number" id="str" name="str" value="<%- fillUnit.stats.str %>">
           <label title="Unit's raw magical power" for="mag">Magic:</label>
-          <input class="unitStat" type="Number" id="mag" name="mag">
+          <input class="unitStat" type="Number" id="mag" name="mag" value="<%- fillUnit.stats.mag %>">
           <label title="Unit's ability to land hits" for="skl">Skill:</label>
-          <input class="unitStat" type="Number" id="skl" name="skl">
+          <input class="unitStat" type="Number" id="skl" name="skl" value="<%- fillUnit.stats.skl %>">
           <label title="Unit's ability to avoid hits and double attack"
              for="spd">Speed:</label>
-          <input class="unitStat" type="Number" id="spd" name="spd">
+          <input class="unitStat" type="Number" id="spd" name="spd" value="<%- fillUnit.stats.spd %>">
           <label title="Unit's luck. Give a slight bonus to hit and dodge" 
             for="lck">Luck:</label>
-          <input class="unitStat" type="Number" id="lck" name="lck">
+          <input class="unitStat" type="Number" id="lck" name="lck" value="<%- fillUnit.stats.lck %>">
           <label title="Unit's ability to withstand physical hits" for="def">Defense:</label>
-          <input class="unitStat" type="Number" id="def" name="def">
+          <input class="unitStat" type="Number" id="def" name="def" value="<%- fillUnit.stats.def %>">
           <label title="Unit's ability to withstand magical hits" for="res">Resistance:</label>
-          <input class="unitStat" type="Number" id="res" name="res">
+          <input class="unitStat" type="Number" id="res" name="res" value="<%- fillUnit.stats.res %>">
         </fieldset>
         <br>
         <fieldset>
           <legend>Weaponry</legend>
           <label title="Arm yourself. Descriptive" for="weaponName">Weapon Name:</label>
-          <input type="text" id="weaponName" name="weaponName">
+          <input type="text" id="weaponName" name="weaponName" value="<%- fillUnit.weapon.name %>">
           <label title="Type of weapon being used (sword,lance,axe,tome,stone). Used for weapon triangle calculation"
           for="weaponType">Type:</label>
-          <input type="text" id="weaponType" name="weaponType">
+          <input type="text" id="weaponType" name="weaponType" value="<%- fillUnit.weapon.type %>">
           <br><br>
           <label title="Damage type of a weapon. (magical or physical)"
             for="weaponDamage">Damage Type:</label>
-          <input type="text" id="weaponDamage" name="weaponDamage">
+          <input type="text" id="weaponDamage" name="weaponDamage" value="<%- fillUnit.weapon.damage %>">
           <label title="Special property denoting extra damage towards a unit type. Can have multiple types or none. Use , to separate."
           for="typeKiller">Effective Against:</label>
-          <input type="text" id="typeKiller" name="typeKiller">
+          <input type="text" id="typeKiller" name="typeKiller" value="<%- fillUnit.weapon.typeKiller %>">
           <br><br>
           <label title="Weapon's base damage" for="mt">Might:</label>
-          <input class="unitStat" type="Number" id="mt" name="mt">
+          <input class="unitStat" type="Number" id="mt" name="mt" value="<%- fillUnit.weapon.mt %>">
           <label title="Weapon's base chance to hit." for="hit">Accuracy:</label>
-          <input class="unitStat" type="Number" id="hit" name="hit">
+          <input class="unitStat" type="Number" id="hit" name="hit" value="<%- fillUnit.weapon.hit %>">
           <label title="Weapon's base chance to crit" for="crt">Crit Rate:</label>
-          <input class="unitStat" type="Number" id="crt" name="crt">
+          <input class="unitStat" type="Number" id="crt" name="crt" value="<%- fillUnit.weapon.crt %>">
         </fieldset>
         <br>
         <div class="buttonBox">

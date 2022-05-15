@@ -173,6 +173,7 @@ table {
 
 .creatorBox h1 {
   text-align: center;
+  margin: auto;
 }
 
 .creatorBox hr {
@@ -198,6 +199,6 @@ table {
 }
 
 .buttonBox {
-  margin: auto;
-  width: 20%;
+  text-align: center;
+  width: 100%;
 }

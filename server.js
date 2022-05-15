@@ -151,12 +151,44 @@ app.get("/battle/step", async (req,res) => {
     res.render("battle",variables);
 })
 
-app.get("/creator", function(req,res) {
+app.get("/creator", async (req,res) => {
     if (!req.user) {
         res.redirect("/login")
     } else {
         let userInfo = formatter.passUserInfo(req.user);
+
+        await mongoClient.switchUserCollection(req.user.email);        
+        let units = await mongoClient.list();
+
         let variables = {
+            unitSelection: formatter.unitsToSelection(units, null),
+            fillUnit: {
+                stats: {},
+                weapon: {},
+            },
+            ...userInfo
+        }
+        res.render("creator",variables);
+    }
+})
+
+app.post("/creator/fill", async (req,res) => {
+    if (!req.user) {
+        res.redirect("/login")
+    } else if (req.body.fillUnitName === "submitNewUnit") {
+        res.redirect("/creator")
+    } else {
+        let userInfo = formatter.passUserInfo(req.user);
+
+        await mongoClient.switchUserCollection(req.user.email);        
+        let units = await mongoClient.list();
+        
+        let fillUnit = units.find(unit => unit.name === req.body.fillUnitName);
+        console.log(fillUnit)
+
+        let variables = {
+            unitSelection: formatter.unitsToSelection(units, req.body.fillUnitName),
+            fillUnit,
             ...userInfo
         }
         res.render("creator",variables);
@@ -166,10 +198,17 @@ app.get("/creator", function(req,res) {
 app.post("/creator/submit", async (req,res) => {
     if (!req.user) {
         res.sendStatus(401)
-    } else {
-        await mongoClient.switchUserCollection(req.user.email);
+    } else if (req.body.fillUnitName === "submitNewUnit") {
+        await mongoClient.switchUserCollection(req.user.email);        
         let newUnit = formatter.creatorToDatabase(req.body);
         await mongoClient.insert(newUnit);
+        res.redirect("/creator");
+    } else { 
+        await mongoClient.switchUserCollection(req.user.email);
+        let updatedUnit = formatter.creatorToDatabase(req.body);
+        console.log(req.body.fillUnitName);
+        console.log(updatedUnit);
+        await mongoClient.updateOne({name: req.body.fillUnitName}, updatedUnit);
         res.redirect("/creator");
     }
 })

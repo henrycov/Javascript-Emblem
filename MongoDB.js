@@ -49,7 +49,7 @@ class MongoDB {
             .collection(this.databaseAndCollection.collection)
             .find().toArray();
             //Create new user collection
-            await this.client.db(this.databaseAndCollection.db).createCollection(userId, { capped : true, size : 1000000, max : 5000 });
+            await this.client.db(this.databaseAndCollection.db).createCollection(userId, {capped : false});
             this.collection = userId;
             await this.client.db(this.databaseAndCollection.db)
             .collection(this.databaseAndCollection.collection)
@@ -98,6 +98,10 @@ class MongoDB {
         let result = await this.client.db(this.databaseAndCollection.db).collection(this.databaseAndCollection.collection).findOne(key);
         console.log(`upsert for ${key} has been requested for ${this.collection}`)
         return result;
+    }
+
+    async updateOne(filter,data) {
+        const result = await this.client.db(this.databaseAndCollection.db).collection(this.databaseAndCollection.collection).updateOne(filter,{$set: data});
     }
 }
 
