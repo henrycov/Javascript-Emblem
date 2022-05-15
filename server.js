@@ -184,7 +184,6 @@ app.post("/creator/fill", async (req,res) => {
         let units = await mongoClient.list();
         
         let fillUnit = units.find(unit => unit.name === req.body.fillUnitName);
-        console.log(fillUnit)
 
         let variables = {
             unitSelection: formatter.unitsToSelection(units, req.body.fillUnitName),
@@ -213,6 +212,20 @@ app.post("/creator/submit", async (req,res) => {
     }
 })
 
+app.post("/creator/delete", async (req,res) => {
+    if (!req.user) {
+        res.redirect("/login")
+    } else if (req.body.fillUnitName === "submitNewUnit") {
+        res.redirect("/creator")
+    } else {
+
+        await mongoClient.switchUserCollection(req.user.email);        
+        await mongoClient.remove(req.body.fillUnitName);
+        
+        res.redirect("/creator");
+    }
+})
+
 app.get("/login", function(req,res) {
     let userInfo = formatter.passUserInfo(req.user);
     !(req.user) ? res.render("login", {...userInfo}) : res.sendStatus(401);
@@ -237,6 +250,10 @@ app.get('/logout', (req, res) => {
     req.logOut();
     req.session.destroy();
     res.redirect('/battle');
+})
+
+app.get('/info', (req, res) => {
+    res.redirect('https://github.com/henrycov/Javascript-Emblem')
 })
 
 console.log("Server started on port " + serverPort);

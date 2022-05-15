@@ -103,6 +103,10 @@ class MongoDB {
     async updateOne(filter,data) {
         const result = await this.client.db(this.databaseAndCollection.db).collection(this.databaseAndCollection.collection).updateOne(filter,{$set: data});
     }
+
+    async remove(target) {
+        const result = await this.client.db(this.databaseAndCollection.db).collection(this.databaseAndCollection.collection).deleteOne({name: target});
+    }
 }
 
 /* Our database and collection */

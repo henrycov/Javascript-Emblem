@@ -202,3 +202,7 @@ table {
   text-align: center;
   width: 100%;
 }
+
+.dangerButton {
+	background-color: red;
+}
