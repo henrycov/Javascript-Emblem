@@ -151,8 +151,32 @@ app.get("/battle/step", async (req,res) => {
     res.render("battle",variables);
 })
 
+app.get("/creator", function(req,res) {
+    if (!req.user) {
+        res.redirect("/login")
+    } else {
+        let userInfo = formatter.passUserInfo(req.user);
+        let variables = {
+            ...userInfo
+        }
+        res.render("creator",variables);
+    }
+})
+
+app.post("/creator/submit", async (req,res) => {
+    if (!req.user) {
+        res.sendStatus(401)
+    } else {
+        await mongoClient.switchUserCollection(req.user.email);
+        let newUnit = formatter.creatorToDatabase(req.body);
+        await mongoClient.insert(newUnit);
+        res.redirect("/creator");
+    }
+})
+
 app.get("/login", function(req,res) {
-    !(req.user) ? res.render("login") : res.sendStatus(401);
+    let userInfo = formatter.passUserInfo(req.user);
+    !(req.user) ? res.render("login", {...userInfo}) : res.sendStatus(401);
 })
 
 app.get('/auth/google',

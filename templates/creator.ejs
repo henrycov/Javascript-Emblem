@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Javascript Emblem</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="/css/googlebtn.css" />
+</head>
+
+<div class="contentBox">
+    <div class="header">
+      <h1>Javascript Emblem</h1>
+      <div class="topnav">
+        <a href="/battle">Battle Simulator</a>
+        <a class="active" href="/creator">Unit Creator</a>
+        <a href="/info">Information</a>
+        <div class="topnav-right">
+          <div class="topnav-right">
+            <% if (loggedIn) { %>
+              <a>Hello <%- userName %>!</a>
+              <a href="/logout">Logout</a>
+            <%} else { %>
+              <a href="/login">User Login</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="creatorBox">
+      <h1> Unit Creator </h1>
+      <hr>
+      <form action="/creator/submit" method="post">
+        <fieldset>
+          <legend>General Data</legend>
+          <label title="Give your unit a nice, unique name"
+             for="name">Name:</label>
+          <input type="text" id="name" name="name">
+          <label title="Purely descriptive for the time being" 
+          for="class">Class:</label>
+          <input type="text" id="class" name="class">
+          <label title="Descriptors for unit state (mounted, flying, dragon). Used for effective damage. Can have multiple types or none. Use , to separate." 
+          for="unitType">Unit Type(s):</label>
+          <input type="text" id="unitType" name="unitType">
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend>Skills</legend>
+          <label title="Skills are unique abilities that can be activated. Not implemented for this prototype"
+           for="skills">Skills (WIP):</label>
+          <input type="text" id="skills" name="skills">
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend>Stats</legend>
+          <label title="How much damage a unit can take" for="skills">Maximum HP:</label>
+          <input class="unitStat" type="Number" id="maxhp" name="maxhp">
+          <br> <br>
+          <label title="Unit's raw physical power" for="str">Strength:</label>
+          <input class="unitStat" type="Number" id="str" name="str">
+          <label title="Unit's raw magical power" for="mag">Magic:</label>
+          <input class="unitStat" type="Number" id="mag" name="mag">
+          <label title="Unit's ability to land hits" for="skl">Skill:</label>
+          <input class="unitStat" type="Number" id="skl" name="skl">
+          <label title="Unit's ability to avoid hits and double attack"
+             for="spd">Speed:</label>
+          <input class="unitStat" type="Number" id="spd" name="spd">
+          <label title="Unit's luck. Give a slight bonus to hit and dodge" 
+            for="lck">Luck:</label>
+          <input class="unitStat" type="Number" id="lck" name="lck">
+          <label title="Unit's ability to withstand physical hits" for="def">Defense:</label>
+          <input class="unitStat" type="Number" id="def" name="def">
+          <label title="Unit's ability to withstand magical hits" for="res">Resistance:</label>
+          <input class="unitStat" type="Number" id="res" name="res">
+        </fieldset>
+        <br>
+        <fieldset>
+          <legend>Weaponry</legend>
+          <label title="Arm yourself. Descriptive" for="weaponName">Weapon Name:</label>
+          <input type="text" id="weaponName" name="weaponName">
+          <label title="Type of weapon being used (sword,lance,axe,tome,stone). Used for weapon triangle calculation"
+          for="weaponType">Type:</label>
+          <input type="text" id="weaponType" name="weaponType">
+          <br><br>
+          <label title="Damage type of a weapon. (magical or physical)"
+            for="weaponDamage">Damage Type:</label>
+          <input type="text" id="weaponDamage" name="weaponDamage">
+          <label title="Special property denoting extra damage towards a unit type. Can have multiple types or none. Use , to separate."
+          for="typeKiller">Effective Against:</label>
+          <input type="text" id="typeKiller" name="typeKiller">
+          <br><br>
+          <label title="Weapon's base damage" for="mt">Might:</label>
+          <input class="unitStat" type="Number" id="mt" name="mt">
+          <label title="Weapon's base chance to hit." for="hit">Accuracy:</label>
+          <input class="unitStat" type="Number" id="hit" name="hit">
+          <label title="Weapon's base chance to crit" for="crt">Crit Rate:</label>
+          <input class="unitStat" type="Number" id="crt" name="crt">
+        </fieldset>
+        <br>
+        <div class="buttonBox">
+          <input type="submit" value="Build Unit">
+          <input type="reset" value="Reset Creator">
+        </div>
+        <br> <br>
+      </form>
+    </div>
+</div>

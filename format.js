@@ -91,5 +91,22 @@ function passQueryBattleStatus(query) {
     return {status, battleLog, blueBattleStats, redBattleStats}
 }
 
+function creatorToDatabase(body) { 
+    let newUnit = {
+        name: body.name, class: body.class, 
+        unitType: body.unitType.split(",").filter(i => i), 
+        skills: body.skills.split(",").filter(i => i),
+        stats: {maxhp: Number(body.maxhp), 
+            str: Number(body.str), mag: Number(body.mag), 
+            skl: Number(body.skl), spd: Number(body.spd), lck: Number(body.lck), 
+            def: Number(body.def), res: Number(body.res)},
+        weapon: {name: body.weaponName, 
+        type: body.weaponType, damage: body.weaponDamage,
+        mt: Number(body.mt), hit: Number(body.hit), crt: Number(body.crt),
+        typeKiller: body.typeKiller.split(",").filter(i => i)}
+    }
+    return newUnit;
+}
+
 module.exports = {unitsToSelection, passUserInfo, defaultUnit, defaultBattle, 
-    passQueryBlueObject, passQueryRedObject, passQueryBattleStatus};
+    passQueryBlueObject, passQueryRedObject, passQueryBattleStatus, creatorToDatabase};

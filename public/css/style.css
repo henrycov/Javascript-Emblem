@@ -165,3 +165,39 @@ table {
 .loginBox h2 {
   text-align: center;
 }
+
+.creatorBox {
+  background-color: #90A955;
+  overflow: hidden;
+}
+
+.creatorBox h1 {
+  text-align: center;
+}
+
+.creatorBox hr {
+  border: solid #ECF39E 1px;
+}
+
+.creatorBox fieldset {
+ background-color: #ECF39E;
+ width: 70%;
+ margin: auto;
+ border: #132A13 outset .2rem;
+}
+
+.creatorBox legend {
+  border: #132A13 outset .1rem;
+  font-size: 1.4rem;
+  background-color: #ECF39E;
+}
+
+.creatorBox label {
+  font-weight: bold;
+  margin: .3rem;
+}
+
+.buttonBox {
+  margin: auto;
+  width: 20%;
+}

@@ -90,6 +90,7 @@ class MongoDB {
     //Insert data into current collection
     async insert(newData) {
         const result = await this.client.db(this.databaseAndCollection.db).collection(this.databaseAndCollection.collection).insertOne(newData);
+        console.log(`An insertion has been made to ${this.collection}`);
     }
 
     async upsert(key, data) {

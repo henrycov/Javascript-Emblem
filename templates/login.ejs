@@ -12,11 +12,18 @@
     <div class="header">
       <h1>Javascript Emblem</h1>
       <div class="topnav">
-        <a class="active" href="/battle">Battle Simulator</a>
+        <a href="/battle">Battle Simulator</a>
         <a href="/creator">Unit Creator</a>
         <a href="/info">Information</a>
         <div class="topnav-right">
-          <a href="/login">User Login</a>
+          <div class="topnav-right">
+            <% if (loggedIn) { %>
+              <a>Hello <%- userName %>!</a>
+              <a href="/logout">Logout</a>
+            <%} else { %>
+              <a class="active" href="/login">User Login</a>
+            <% } %>
+          </div>
         </div>
       </div>
     </div>
