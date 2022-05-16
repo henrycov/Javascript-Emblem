@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/henrycov/Javascript-Emblem.git"
   },
-  "author": "",
+  "author": "Henry Covington",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/henrycov/Javascript-Emblem/issues"
@@ -31,5 +31,8 @@
     "passport-google-oauth2": "^0.2.0",
     "path": "^0.12.7"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": "12.18.3"
+  }
 }
