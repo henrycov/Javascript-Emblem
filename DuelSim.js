@@ -80,12 +80,12 @@ function step(battleStat) {
             break;
     }
 
-    if(battleStat.blueBattleStats.hp < 0) {
+    if(battleStat.blueBattleStats.hp <= 0) {
         battleStat.status = "Red Wins!";
         battleStat.battleLog += `\n${battleStat.redBattleStats.name} is victorious!`
     }
 
-    if(battleStat.redBattleStats.hp < 0) {
+    if(battleStat.redBattleStats.hp <= 0) {
         battleStat.status = "Blue Wins!";
         battleStat.battleLog += `\n${battleStat.blueBattleStats.name} is victorious!`
     }
