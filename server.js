@@ -29,7 +29,7 @@ const app = express();
 app.use(session({secret: process.env.SESSION_SECRET}));
 app.use(passport.initialize());
 app.use(passport.session());
-const serverPort = 5000; 
+const serverPort = process.env.PORT || 5000; 
 
 app.use(bodyParser.urlencoded({extended:false}));
 
