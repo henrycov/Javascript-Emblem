@@ -6,7 +6,7 @@ module.exports = (dbClient) => {
     const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
     const path = require("path");
     require("dotenv").config({ path: path.resolve(__dirname, '.env') })
-    const database = require("./mongoDB");
+    const database = require("./MongoDB");
 
 
     passport.use(new GoogleStrategy({
