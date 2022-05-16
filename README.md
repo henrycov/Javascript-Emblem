@@ -5,6 +5,8 @@ Final Project for CMSC335. Fire Emblem battle simulator allowing users to create
 
 **API Links** - [Google Oauth](https://developers.google.com/identity/protocols/oauth2), implemented using [Passport](https://www.passportjs.org/)
 
+Deployed at: https://javascript-emblem.herokuapp.com/
+
 Significant References:
 - The Great Nelson's CMSC355 Class
 - [This Wonderful Passport Tutorial](https://www.youtube.com/watch?v=Q0a0594tOrc&t=972s&ab_channel=KrisFoster)
